@@ -9,7 +9,11 @@
 #include "QString"
 #include "QFont"
 #include "QGraphicsTextItem"
+<<<<<<< HEAD
 #include<iostream>
+=======
+//test
+>>>>>>> parent of 744e383... Update mainwindow.cpp
 using namespace std;
 typedef struct VSTRING{
     QString text;
