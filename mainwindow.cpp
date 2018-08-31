@@ -9,6 +9,7 @@
 #include "QString"
 #include "QFont"
 #include "QGraphicsTextItem"
+#include<iostream>
 using namespace std;
 typedef struct VSTRING{
     QString text;
@@ -24,15 +25,15 @@ typedef struct VELLIPSE{
     VELLIPSE(int x1=10,int y1=10,int x2=5,int y2=7):x1(x1),y1(y1),x2(x2),y2(y2){}
 }Vellipse;
 typedef struct VRECT{
-    int x1,y1,x2,y2;
-    VRECT(int x1=30,int y1=30,int x2=12,int y2=8):x1(x1),y1(y1),x2(x2),y2(y2){}
+    int x1,y1,w,h;
+    VRECT(int x1=30,int y1=30,int w=12,int h=8):x1(x1),y1(y1),w(w),h(h){}
 }Vrect;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
     ui->setupUi(this);
-    QGraphicsScene *w=new QGraphicsScene();
+    w=new QGraphicsScene();
     ui->graphicsView->setSceneRect(0,0,320,211);
     ui->graphicsView->setScene(w);
     QList<QPushButton*> t = {ui->pushButton_7,ui->pushButton,ui->pushButton_2,ui->pushButton_3};
@@ -41,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     ui->pushButton_7->setChecked(true);
     ui->lineEdit->setEnabled(false);
+
+
     QVector<Vline> linecap;
     linecap.append(Vline(0,0,50,50));
     linecap.append(Vline(70,80,200,80));
@@ -56,23 +59,27 @@ MainWindow::MainWindow(QWidget *parent) :
         QGraphicsTextItem* temp = w->addText(stringcap[i].text,tempfont);
         temp->setPos(stringcap[i].x,stringcap[i].y);
     }
-    QVector<Vellipse> circlecap;
+    //矩形、圆形、椭圆
+    //圆的实现
+    QVector<Vellipse>circlecap;
     circlecap.append(Vellipse(50,50,20,20));
     circlecap.append(Vellipse(70,70,30,30));
     foreach(Vellipse e , circlecap){
         w->addEllipse(e.x1,e.y1,e.x2,e.y2);
     }
-    QVector<Vellipse> ellipsecap;
+    //椭圆的实现
+    QVector<Vellipse>ellipsecap;
     ellipsecap.append(Vellipse(100,100,38,47));
     ellipsecap.append(Vellipse(70,50,60,82));
     foreach(Vellipse e , ellipsecap){
         w->addEllipse(e.x1,e.y1,e.x2,e.y2);
     }
-    QVector<Vrect> rectcap;
+    //矩形的实现
+    QVector<Vrect>rectcap;
     rectcap.append(Vrect(150,150,50,30));
     rectcap.append(Vrect(220,100,70,100));
     foreach(Vrect e,rectcap){
-        w->addRect(e.x1,e.y1,e.x2,e.y2);
+        w->addRect(e.x1,e.y1,e.w,e.h);
     }
 }
 
@@ -99,3 +106,70 @@ void MainWindow::on_pushButton_7_clicked(){
         ui->pushButton_7->setChecked(true);
     }
 }
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type()==QEvent::GraphicsSceneMousePress){
+        QGraphicsSceneMouseEvent * e= dynamic_cast<QGraphicsSceneMouseEvent *>(event);
+        for(int i=0;i<w->selectedItems().length();i++)
+        {
+            if(e->buttonDownScenePos(e->button()).x()==w->selectedItems()[i]->x()
+                    &&e->buttonDownScenePos(e->button()).y()==w->selectedItems()[i]->y())
+            {
+                if(e->button()==Qt::LeftButton)
+                {
+                    w->selectedItems()[i]->setEnabled(true);
+
+
+
+
+
+
+
+                }
+            }
+
+        }
+
+
+
+
+
+
+    }
+
+    if(event->type()==QEvent::GraphicsSceneMouseMove){
+
+
+    }
+
+
+
+
+    if(event->type()==QEvent::GraphicsSceneMouseRelease){
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    return false;
+
+}
+
+
+
+
+
+
+
+
+
+
+
