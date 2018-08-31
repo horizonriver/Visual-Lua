@@ -9,6 +9,7 @@
 #include "QString"
 #include "QFont"
 #include "QGraphicsTextItem"
+//test
 using namespace std;
 typedef struct VSTRING{
     QString text;
