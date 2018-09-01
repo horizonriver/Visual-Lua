@@ -107,7 +107,7 @@ void MainWindow::on_pushButton_7_clicked(){
         ui->pushButton_7->setChecked(true);
     }
 }
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+bool MainWindow::eventFilter(QObject *e, QEvent *event)
 {
     if(event->type()==QEvent::GraphicsSceneMousePress){
         QGraphicsSceneMouseEvent * e= dynamic_cast<QGraphicsSceneMouseEvent *>(event);
@@ -119,49 +119,17 @@ bool MainWindow::eventFilter(QObject *watched, QEvent *event)
                 if(e->button()==Qt::LeftButton)
                 {
                     w->selectedItems()[i]->setEnabled(true);
-
-
-
-
-
-
-
                 }
             }
-
         }
-
-
-
-
-
-
     }
-
     if(event->type()==QEvent::GraphicsSceneMouseMove){
 
-
     }
-
-
-
-
     if(event->type()==QEvent::GraphicsSceneMouseRelease){
 
-
     }
-
-
-
-
-
-
-
-
-
-
     return false;
-
 }
 
 
