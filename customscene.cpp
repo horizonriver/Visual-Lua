@@ -98,7 +98,7 @@ CustomScene::CustomScene(QGraphicsScene *parent)
         }
     }
     temprect = addRect(10,10,10,10);  //如果可以在item中完成的就不要牵连上scene
-    temprect->setVisible(false);
+
 }
 void CustomScene::setLittleRect(bool i,QGraphicsRectItem *item){
     int tx=item->rect().x();
